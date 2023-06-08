@@ -1,5 +1,5 @@
-# Discourse New Topic button theme component
+# Discourse header actions
 
-A simple theme to add a "New Topic" button on every page. 
+A simple component to add a "New Post" button on every page and a back to Life! button
 
-More information: https://meta.discourse.org/t/new-topic-button-on-all-pages-theme-component/84551
+Based off on: https://meta.discourse.org/t/new-topic-button-on-all-pages-theme-component/84551
