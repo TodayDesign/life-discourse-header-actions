@@ -1,6 +1,5 @@
 {
-  "name": "New Topic button",
-  "about_url": "https://meta.discourse.org/t/new-topic-button-on-all-pages-theme-component/84551",
-  "license_url": "https://github.com/discourse/discourse-new-topic-button-theme-component/blob/main/LICENSE",
+  "name": "Header actions for Life!",
+  "about_url": "https://github.com/TodayDesign/life-discourse-header-actions",
   "component": true
 }

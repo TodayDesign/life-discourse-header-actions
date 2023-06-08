@@ -1,0 +1,71 @@
+<script type="text/discourse-plugin" version="0.8">
+    const { iconNode } = require("discourse-common/lib/icon-library");
+    const createWidget = require('discourse/widgets/widget').createWidget;
+
+
+    let container = api.container;
+    const composerModal = require("discourse/models/composer").default;
+    const composerController = container.lookup("controller:composer");
+
+    // Open up create topic modal
+    const createTopic = function() {
+        const controller = container.lookup("controller:navigation/category"),
+          category = controller.get("category.id"),
+          topicCategory = container
+            .lookup("route:topic")
+            .get("context.category.id"),
+          categoryd = topicCategory ? topicCategory : category;
+
+        composerController.open({
+          action: composerModal.CREATE_TOPIC,
+          categoryId: categoryd,
+          draftKey: composerModal.DRAFT
+        });
+    };
+
+    // Create button widget
+
+    createWidget('new-post-button', {
+        tagName: 'button.btn-default.btn.btn-icon-text.ember-view',
+        buildKey: () => 'create-new-post-button',
+
+        _buildIcon(attrs) {
+            const icon = iconNode(attrs.icon, { class: attrs.iconClass });
+            if (attrs["aria-label"]) {
+              icon.properties.attributes["role"] = "img";
+              icon.properties.attributes["aria-hidden"] = false;
+            }
+            return icon;
+        },
+
+        html(attrs, state) {
+
+            if (!this.currentUser) {
+              return;
+            }
+
+            return [
+                this._buildIcon({
+                    icon: "plus",
+                    iconClass: ""
+                }),
+                "New Post"
+            ];
+        },
+
+        click() {
+            createTopic();
+        }
+    });
+</script>
+
+<script type="text/x-handlebars" data-template-name="/connectors/above-main-container/custom-name">
+    <div class="header-actions">
+        <div class="headerLink">
+            <a title="Back to Life! Online" href="https://develop.my.lifeprogram.org.au/" target="_blank">Back to Life! Online</a>
+        </div>
+        {{#if this.currentUser.can_create_topic }}
+            {{mount-widget widget="new-post-button"}}
+        {{/if}}
+    </div>
+</script>
